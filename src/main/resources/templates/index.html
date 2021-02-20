@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Inicio</title>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <header th:replace="layout/plantilla :: header"/>
+        <a th:href="@{/agregar}">Crear Persona</a>
+        <div th:if="${personas != null and !personas.empty}">
+            <table border="1">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Email</th>
+                    <th>Telefono</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                </tr>
+
+                <!-- Iterar cada elemento de nuestar lista-->
+                <tr th:each="persona : ${personas}">
+                    <td th:text="${persona.nombre}">Mostar Nombre</td>
+                    <td th:text="${persona.apellido}">Mostar Apellido</td>
+                    <td th:text="${persona.email}">Mostar Email</td>
+                    <td th:text="${persona.telefono}">Mostrar telefono</td>
+                    <td><a th:href="@{/editar/} + ${persona.idPersona}" th:text="Editar"/></td>
+                    <td><a th:href="@{/eliminar(idPersona=${persona.idPersona})}" th:text="Eliminar"/></td>
+                </tr>
+            </table>
+        </div>
+        <div th:if="${personas == null or personas.empty}">
+            La lista de personas está vacía.
+        </div>
+        
+        <footer th:replace="layout/plantilla :: footer"/>
+        
+    </body>
+</html>
